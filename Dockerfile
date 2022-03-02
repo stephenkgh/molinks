@@ -7,6 +7,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 WORKDIR /code
 COPY requirements.txt /code/
-RUN chown -Rv stephenk:stephenk requirements.txt && pip install -r requirements.txt
+RUN set -eux; \
+    chown -Rv stephenk:stephenk requirements.txt; \
+    pip install -r requirements.txt
 USER stephenk
-COPY . /code/

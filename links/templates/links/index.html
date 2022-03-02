@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Links Page{% endblock %}
+
+{% block content %}
+
+{% if errors %}
+<p>{{ errors }}</p>
+{% endif %}
+
+<form method="post" action="">
+{% csrf_token %}
+<table>
+    {{ form.as_table }}
+
+<tr><td>
+    <input type="submit" value="Save">
+</td></tr>
+
+</table>
+</form>
+
+{% if link_heir %}
+    <ul>
+    {% for cat_id, group in link_heir.items %}
+        <li>{{ group.cat.name }}</li>
+        <ul>
+            {% for link in group.links %}
+                <li><a href="{{ link.url }}">{{ link.url }}</a> ({{ link.note }})</li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class='no_links_message'>Ain't no links yet, yo.</p>
+{% endif %}
+
+{% endblock %}

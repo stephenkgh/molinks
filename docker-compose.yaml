@@ -11,7 +11,7 @@ services:
       - POSTGRES_PASSWORD=molinks-password
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: ash -c "while true; do python manage.py runserver 0.0.0.0:8000; sleep 2; done"
     volumes:
       - .:/code
     ports:
