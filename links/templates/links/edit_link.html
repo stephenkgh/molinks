@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Link Page{% endblock %}
+
+{% block content %}
+
+{% if errors %}
+<p>{{ errors }}</p>
+{% endif %}
+
+<form method="post" action="{{ link_id }}">
+{% csrf_token %}
+<table>
+    {{ form.as_table }}
+<tr><td>
+    <input type="submit" name="save" value="Save">
+    <input type="submit" name="cancel" value="Cancel">
+    <input type="submit" name="delete" value="Delete">
+</td></tr>
+
+</table>
+</form>
+
+{% endblock %}
+

@@ -42,16 +42,9 @@ class Link(models.Model):
 
     class Meta:
         ordering = ['category', '-updated']
-        """
-        constraints = [
-            models.CheckConstraint(
-                check=models.Q(user = models.F("category__user")),
-                name='user_constraint',
-            ),
-        ]
-        """
 
     def save(self, *args, **kwargs):
+        # if no user is given don't fail here; instead let normal integrity check catch it
         if hasattr(self, 'user') and self.user != self.category.user:
             raise IntegrityError("Link user must match category user")
         super().save(*args, **kwargs)

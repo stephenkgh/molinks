@@ -20,17 +20,29 @@
 </table>
 </form>
 
+
 {% if link_heir %}
-    <ul>
+    <table id="link_table" border=1>
     {% for cat_id, group in link_heir.items %}
-        <li>{{ group.cat.name }}</li>
-        <ul>
+        <thead>
+            <tr><th colspan="4">{{ group.cat.name }}
+                <a class="edit_link" href="category/{{ group.cat.id }}">Edit Category</a></th>
+            </tr>
+        </thead>
+        <tbody>
             {% for link in group.links %}
-                <li><a href="{{ link.url }}">{{ link.url }}</a> ({{ link.note }})</li>
+                <tr>
+                    <td class="padcolumn">
+                        <a class="edit_link" href="link/{{ link.id }}">Edit</a></td>
+                    <td>
+                        <a href="{{ link.url }}">{{ link.url }}</a></td>
+                    <td>{{ link.note }}</td>
+                    <td>{{ link.updated }}</td>
+                </tr>
             {% endfor %}
-        </ul>
+        </tbody>
         {% endfor %}
-    </ul>
+    </table>
 {% else %}
     <p class='no_links_message'>Ain't no links yet, yo.</p>
 {% endif %}
