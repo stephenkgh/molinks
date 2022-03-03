@@ -33,7 +33,7 @@ class Category(models.Model):
 class Link(models.Model):
     url = models.CharField(max_length=4096)
     note = models.CharField(max_length=500)
-    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created = models.DateTimeField(default=timezone.now)
     updated = models.DateTimeField(default=timezone.now)
