@@ -28,6 +28,13 @@ def login(request):
     return render(request, 'login.html', {'form': form, 'errors': errors})
 
 
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect('/')
+
+
+# ---- utility ---------------------------------------------------------------------------------------
+
 def redirect_next(request):
     if 'next' in request.GET:
         return HttpResponseRedirect(request.GET['next'])

@@ -7,10 +7,8 @@ from molinks import views
 app_name = 'molinks'
 
 urlpatterns = [
-    #path('accounts/', include('django.contrib.auth.urls')),
-    #path('login/', auth_views.LoginView.as_view(template_name='login.html')),
+    path('', include('links.urls')),
     path('login/', views.login, name='login'),
-    path('links/', include('links.urls')),
-    path('polls/', include('polls.urls')),
+    path('logout/', views.logout, name='logout'),
     path('admin/', admin.site.urls),
 ]

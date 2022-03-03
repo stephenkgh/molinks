@@ -30,6 +30,7 @@ class CategoryModelTests(TestCase):
         ac1 = Category(name='Death')
         self.assertRaisesMessage(IntegrityError, "null value", ac1.save)
 
+    #TODO: handle case where an active link is attached to an INACTIVE category
 
 class LinkModelTests(TestCase):
 
@@ -92,20 +93,7 @@ class LinkModelTests(TestCase):
         (az, bub) = build_users()
         ac1 = Category(name='Death', user=az)   ; ac1.save()
         bl1 = Link(url='https://void.null/death/blog', note='my scrapbooking site', category=ac1, user=bub)
-        #bl1.save()
         self.assertRaisesMessage(IntegrityError, "user", bl1.save)
-        """
-
-        print('az categories:\n', Category.objects.all(az))
-        print('az links:\n', Link.objects.all(az))
-        print('bub categories:\n', Category.objects.all(bub))
-        print('bub links:\n', Link.objects.all(bub))
-
-        print('link user:', bl1.user)
-        print('cat user:', bl1.category.user)
-
-        assert False, "HERE"
-        """
 
 
 # ---- utility ---------------------------------------------------------------------------------------

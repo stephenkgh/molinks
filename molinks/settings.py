@@ -34,7 +34,6 @@ ALLOWED_HOSTS = ['localhost']
 
 INSTALLED_APPS = [
     'molinks',
-    'polls',
     'links',
     'django.contrib.admin',
     'django.contrib.auth',

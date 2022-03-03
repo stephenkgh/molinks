@@ -25,7 +25,7 @@ def index(request):
         form = forms.LinksForm(request.user)
 
     # process links and categories into heirarchy for display
-    links = Link.objects.all(request.user)
+    links = Link.objects.all(request.user).filter(active=True)
     link_heir = {}
     cat_id = None
     for link in links:
@@ -53,8 +53,10 @@ def edit_link(request, link_id):
     # process form
     errors = None
     if request.method == 'POST':
+        # links are never deleted via the UI, just marked inactive
         if 'delete' in request.POST:
-            raise Exception("NotYetImplemented")
+            link.active = False
+            link.save()
         elif 'save' in request.POST:
             form = forms.LinksForm(request.user, request.POST)
             if form.is_valid():
@@ -66,7 +68,7 @@ def edit_link(request, link_id):
                     link.save()
         # go back to index page
         if errors is None:
-            return HttpResponseRedirect(reverse('links:index'))
+            return HttpResponseRedirect(reverse('index'))
 
     else:
         form = forms.LinksForm(request.user, initial={
@@ -99,7 +101,7 @@ def edit_cat(request, cat_id):
                 cat.save()
         # go back to index page
         if errors is None:
-            return HttpResponseRedirect(reverse('links:index'))
+            return HttpResponseRedirect(reverse('index'))
 
     else:
         form = forms.EditCatForm(initial={
