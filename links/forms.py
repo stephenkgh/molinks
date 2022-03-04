@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.core.validators import URLValidator
 
 from .models import Category, Link
 
@@ -20,9 +22,33 @@ class LinksForm(forms.Form):
     note = forms.CharField(label='Note', required=False, max_length=note_ml)
     category = forms.ModelChoiceField(queryset=None, required=False)
     new_cat = forms.CharField(label='or add new category', required=False, max_length=cat_ml)
+    override = forms.BooleanField(required=False)
+
+    # handle complex validation
+    def clean(self):
+        cleaned_data = super().clean()
+        errors = []
+
+        # validate URL unless overridden
+        url = cleaned_data.get("url")
+        override = cleaned_data.get("override")
+        if not override:
+            validate_url = URLValidator()
+            try:
+                validate_url(url)
+            except ValidationError as e:
+                errors.append(ValidationError("Enter a valid URL", code='bad_url'))
+
+        # one of cat or new_cat are required
+        if not (cleaned_data.get("category") or cleaned_data.get("new_cat")):
+            errors.append(ValidationError("Choose an existing category or create a new one", code='no_cat'))
+
+        # return multiple errors
+        if errors:
+            raise ValidationError(errors)
 
 
 class EditCatForm(forms.Form):
     cat_ml = Category._meta.get_field('name').max_length
 
-    name = forms.CharField(label='New category name', required=True, max_length=cat_ml)
+    name = forms.CharField(widget=forms.TextInput(attrs={'autofocus': True}), required=True, max_length=cat_ml)

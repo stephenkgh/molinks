@@ -1,7 +1,244 @@
-body {
-    background-color: white;
+@font-face{
+    font-family: 'URW JacobiD';
+    src: url("/static/links/j003000d.ttf");
 }
 
-li a {
-    color: red;
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+    min-height: 100%;
+}
+
+body {
+    background: #9f8aac;
+    padding: 10px;
+    margin: 0px;
+    font-size: 10pt;
+    font-family: helvetica, verdana, lucida grande, lucida sans unicode, arial, sans-serif;
+    text-align: center;
+}
+
+#content {
+    /* subtract footer height plus a bit extra or we get an unnecessary scrollbar*/
+    min-height: calc(100vh - 40px);
+}
+
+footer {
+    height: 20px;
+    padding-top: 10px;
+}
+
+h1, h1 a:link, h1 a:visited {
+    font-family: 'URW JacobiD';
+    font-size: 91pt;
+    font-weight: normal;
+    color: #2c0038;
+    margin: -10px 0;
+    padding: 0 0 20px 0;
+}
+
+h1 a:active {
+    color: #806080;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    padding: 0 15px 0 0;
+}
+
+a:link {
+    color: #200020;
+    text-decoration: none;
+}
+a:visited {
+    color: #200020;
+}
+a:hover {
+    color: #402040;
+}
+a:active {
+    color: #806080;
+}
+
+input[type=submit],
+input[type=submit],
+select {
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #000;
+}
+
+input[type=submit]:active,
+input[type=submit]:focus,
+input[type=submit]:hover,
+select:active,
+select:focus,
+select:hover
+{
+    color: #404;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+/* ---- containers ------------------------------------------------------------------------------------ */
+
+div#form_container {
+    display: inline-block;
+    text-align: left;
+    width: 70%;
+    margin-left: 12%;
+    margin-right: 18%;
+}
+
+div#small_form_container {
+    display: inline-block;
+    text-align: left;
+    width: 600px;
+    margin-right: 50px;
+}
+
+div#link_container {
+    text-align: left;
+    padding-top: 20px;
+}
+
+div#login_container {
+    display: inline-block;
+    text-align: left;
+    width: 300px;
+    margin-right: 50px;
+}
+
+/* ---- form table ------------------------------------------------------------------------------------ */
+
+table#form_table {
+    width: 100%;
+}
+
+table#form_table td {
+    padding: 3px 10px;
+}
+
+table#form_table th {
+    font-weight: normal;
+    white-space: nowrap;
+    width: 1%;
+}
+
+table#form_table td.expand input {
+    width: 100%;
+}
+
+table#form_table td.shrink {
+    width: 1%;
+}
+
+/* ---- link table ------------------------------------------------------------------------------------ */
+
+table#link_table {
+    width: 100%;
+}
+
+table#link_table thead th {
+    font-weight: normal;
+    padding-top: 20px;
+    border-bottom: 1px solid black;
+}
+table#link_table tr td {
+    vertical-align: top;
+    border-top: 1px solid #766780;
+}
+
+td.padcolumn {
+    padding-right: 5px;
+}
+td.linkcolumn {
+    max-width: 600px;
+    vertical-align: top;
+/* truncate links */
+/* * /
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+/* */
+}
+td.notecolumn {
+}
+td.datecolumn {
+}
+
+button.edit_button {
+    visibility: hidden;
+
+    font-size: 8pt;
+    padding: 0 5px;
+    margin: 0;
+    cursor: pointer;
+    *cursor: hand;
+    color: #333;
+    background-color: #e5e5e5;
+    background-image: -webkit-linear-gradient(top, #f5f5f5, #d4d4d4);
+    background-image: -moz-linear-gradient(top, #f5f5f5, #d4d4d4);
+    background-image: linear-gradient(to bottom, #f5f5f5, #d4d4d4);;
+    border: 1px solid #b2b2b2;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+tr:hover a.edit_link button {
+    visibility: visible;
+}
+
+span.edit_category:hover a button {
+    visibility: visible;
+}
+
+
+/* ---- other elements -------------------------------------------------------------------------------- */
+
+div#errors {
+    color: #f45;
+    background: #2c0038;
+    padding: 10px 40px;
+    margin: -20px 0 10px;
+    font-size: 12pt;
+    font-weight: bold;
+    display: inline-block;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+div#errors li {
+    list-style-type: none;
+}
+
+div#logout {
+    margin: 10px;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+div#logout input {
+    margin-bottom:10px;
+}
+
+div#no_links_message {
+    padding: 100px;
+    font-size: 20pt;
+    font-style: italic;
+    font-weight: bold;
+    color: #2c0038;
 }
