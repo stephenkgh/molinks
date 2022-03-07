@@ -1,0 +1,26 @@
+<table id="form_table">
+    <tbody>
+    <tr>
+        <th><label for="{{ form.url.id_for_label }}">{{ form.url.label }}</label></th>
+        <td colspan="3" class="expand">{{ form.url }}</td>
+    </tr>
+    <tr>
+        <th><label for="{{ form.note.id_for_label }}">{{ form.note.label }}</label></th>
+        <td colspan="3" class="expand">{{ form.note }}</td>
+    </tr>
+    <tr>
+        <th><label for="{{ form.category.id_for_label }}">{{ form.category.label }}</label></th>
+        <td class="shrink">{{ form.category }}</td>
+        <th><label for="{{ form.new_cat.id_for_label }}">{{ form.new_cat.label }}</label></th>
+        <td class="expand">{{ form.new_cat }}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td colspan="3">
+            <input type="submit" name="save" value="Save">
+            {% if cancel %}<input type="submit" name="cancel" value="Cancel">{% endif %}
+            {% if delete %}<input class="bold" type="submit" name="delete" value="Delete">{% endif %}
+        </td>
+    </tr>
+    </tbody>
+</table>

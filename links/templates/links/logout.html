@@ -1,0 +1,11 @@
+<div id="logout">
+<form method="GET" action ="/logout">
+    <input type="submit" value="Logout">
+</form>
+{% if admin %}
+    <form method="GET" action ="/admin">
+        <input type="submit" value="Admin">
+    </form>
+{% endif %}
+</div>
+

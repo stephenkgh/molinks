@@ -1,8 +1,13 @@
-from django.core.management.base import BaseCommand, CommandError
-from links.models import Category, Link
+import datetime
+
 from django.contrib.auth.models import User
+from django.core.management.base import BaseCommand, CommandError
+from django.utils import timezone
+
 from faker import Faker
 from random import randint as r
+
+from links.models import Category, Link
 
 class Command(BaseCommand):
     help = 'Creates a new fake user with fake data'
@@ -39,7 +44,8 @@ class Command(BaseCommand):
             for j in range(r(lmin, lmax)):
                 url = fakeUrl(f)
                 note = ' '.join(f.words(r(lnmin, lnmax)))
-                link = Link(url=url, note=note, category=cat, user=user)
+                date = timezone.make_aware(f.date_time_between(timezone.now() - datetime.timedelta(days=365*5), timezone.now()))
+                link = Link(url=url, note=note, category=cat, user=user, created=date, updated=date)
                 link.save()
                 ln += 1
 

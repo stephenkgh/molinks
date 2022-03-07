@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Edit Cat Page{% endblock %}
+{% block title %}Mo Links - Edit Category {% endblock %}
 
 {% block content %}
+
+{% include "links/logout.html" %}
 
 <div id="small_form_container">
 <form method="post" action="{{ cat_id }}">
@@ -29,6 +31,6 @@
 </form>
 </div>
 
-{% endblock %}
+{% endblock content %}
 
 

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Mo Links{% endblock %}
+
+{% block content %}
+
+{% include "links/logout.html" %}
+
+<div id="form_container">
+<form method="post" action="">
+{% csrf_token %}
+{% include "links/add_edit_form.html" %}
+</form>
+</div>
+
+{% if link_heir %}
+    {% block links_container %}{% endblock %}
+{% else %}
+    <div id="no_links_message">Add links and they will show up here</div>
+{% endif %}
+
+{% endblock content %}

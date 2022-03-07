@@ -1,51 +1,10 @@
-{% extends "base.html" %}
+{% extends "links/main.html" %}
 
-{% block title %}Links Page{% endblock %}
-
-{% block content %}
-
-    <div id="logout">
-    <form method="GET" action ="/logout">
-        <input type="submit" value="Logout">
-    </form>
-    {% if admin %}
-        <form method="GET" action ="/admin">
-            <input type="submit" value="Admin">
-        </form>
-    {% endif %}
-    </div>
-
-<div id="form_container">
-<form method="post" action="">
-{% csrf_token %}
-<table id="form_table">
-    <tbody>
-    <tr>
-        <th><label for="{{ form.url.id_for_label }}">{{ form.url.label }}</label></th>
-        <td colspan="3" class="expand">{{ form.url }}</td>
-    </tr>
-    <tr>
-        <th><label for="{{ form.note.id_for_label }}">{{ form.note.label }}</label></th>
-        <td colspan="3" class="expand">{{ form.note }}</td>
-    </tr>
-    <tr>
-        <th><label for="{{ form.category.id_for_label }}">{{ form.category.label }}</label></th>
-        <td class="shrink">{{ form.category }}</td>
-        <th><label for="{{ form.new_cat.id_for_label }}">{{ form.new_cat.label }}</label></th>
-        <td class="expand">{{ form.new_cat }}</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td colspan="3"><input type="submit" value="Save"></td>
-    </tr>
-    </tbody>
-</table>
-</form>
-</div>
-
-
-{% if link_heir %}
+{% block links_container %}
     <div id="link_container">
+        <div id="sort">
+            <a href="/recent"><button class="edit_button" type="button">Order by recent</button></a>
+        </div>
     <table id="link_table">
     {% for cat_id, group in link_heir.items %}
         <thead>
@@ -71,8 +30,4 @@
         {% endfor %}
     </table>
     </div>
-{% else %}
-    <div id="no_links_message">Add links and they will show up here</div>
-{% endif %}
-
-{% endblock %}
+{% endblock links_container %}

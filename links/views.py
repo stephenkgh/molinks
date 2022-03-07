@@ -51,6 +51,38 @@ def index(request):
 
 
 @login_required
+def recent(request):
+    # process form
+    form = None
+    if request.method == 'POST':
+        form = forms.LinksForm(request.user, request.POST)
+        if form.is_valid():
+            cat = _get_cat(request)
+            new_link = Link(url=request.POST['url'], note=request.POST['note'], category=cat, user=request.user)
+            new_link.save()
+            form = None # reset form
+        else:
+            # special case: if the only error is no category, autofocus on the new category field
+            if len(form.errors[NON_FIELD_ERRORS]) == 1 and form.has_error(NON_FIELD_ERRORS, 'no_cat'):
+                form.fields['url'].widget.attrs = {}
+                form.fields['new_cat'].widget.attrs = {'autofocus': True}
+
+    # build clean form
+    if not form:
+        form = forms.LinksForm(request.user)
+
+    # process links and categories into heirarchy for display
+    link_heir = Link.objects.all(request.user).filter(active=True).order_by('-updated')
+
+    # render template
+    return render(request, 'links/recent.html', {
+        'form': form,
+        'link_heir': link_heir,
+        'admin': request.user.is_staff,
+    })
+
+
+@login_required
 def edit_link(request, link_id):
     link = Link.objects.get(id=link_id)
 
@@ -130,7 +162,6 @@ def edit_cat(request, cat_id):
 
 
 # ---- utility ---------------------------------------------------------------------------------------
-
 
 def _get_cat(request):
     # create new category
