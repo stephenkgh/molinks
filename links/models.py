@@ -52,3 +52,11 @@ class Link(models.Model):
 
     def __str__(self):
         return self.url
+
+
+class UserPref(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
+    theme = models.CharField(max_length=2, choices=settings.THEME_CHOICES_TUPLES, default=settings.THEME_DEFAULT)
+
+    def __str__(self):
+        return "{} theme {}".format(self.user.username, self.theme)

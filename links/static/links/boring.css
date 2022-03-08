@@ -1,0 +1,53 @@
+/* overrides for "All Business" theme */
+
+body {
+    background: #ffffff;
+    font-family: helvetica, verdana, lucida grande, lucida sans unicode, arial, sans-serif;
+}
+
+h1, h1 a:link, h1 a:visited {
+    font-size: 50pt;
+    font-family: serif;
+    font-weight: bold;
+    color: #2c0038;
+    margin: -10px 0;
+    padding: 0 0 20px 0;
+}
+h1 a:active {
+    color: #806080;
+}
+
+a {
+    color: black;
+    display: inline-block;
+}
+a:visited {
+    color: black;
+}
+a:hover {
+    color: #202080;
+}
+a:active {
+    color: #4040c0;
+}
+
+table#link_table thead th {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+table#link_table tr td {
+    vertical-align: top;
+    border-top: none;
+}
+table#link_table tr:nth-child(odd) td {
+    background: #e1e1f2;
+}
+
+div#errors {
+    color: red;
+    background: black;
+}
+
+div#no_links_message {
+    color: #2c0038;
+}

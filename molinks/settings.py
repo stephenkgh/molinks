@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'links.theme.ThemeMiddleware',
 ]
 
 ROOT_URLCONF = 'molinks.urls'
@@ -134,3 +135,15 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/login/'
+
+# theme choices
+THEME_DEFAULT = 'MO'
+THEME_CHOICES = [
+    # code, description,    filename
+    ['MO',  'Maureen',      'links/molinks.css'],
+    ['DA',  'Dark Mode',    'links/dark.css'],
+    ['NE',  'L33t NeRD',    'links/nerd.css'],
+    ['BO',  'All Business', 'links/boring.css'],
+]
+# process main choices list into tuples needed for ORM
+THEME_CHOICES_TUPLES = [(x[0], x[1]) for x in THEME_CHOICES]

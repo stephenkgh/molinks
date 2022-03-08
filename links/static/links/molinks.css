@@ -1,0 +1,55 @@
+/* overrides for "Maureen" theme */
+
+@font-face{
+    font-family: 'URW JacobiD';
+    src: url("/static/links/j003000d.ttf");
+}
+
+body {
+    background: #9f8aac;
+    color: black;
+    font-family: helvetica, verdana, lucida grande, lucida sans unicode, arial, sans-serif;
+}
+
+h1, h1 a, h1 a:visited {
+    font-family: 'URW JacobiD';
+    font-size: 91pt;
+    font-weight: normal;
+    color: #2c0038;
+    margin: -10px 0;
+    padding: 0 0 20px 0;
+}
+h1 a:active {
+    color: #806080;
+}
+
+a {
+    color: #200020;
+    display: inline-block;
+}
+a:visited {
+    color: #200020;
+}
+a:hover {
+    color: #402040;
+}
+a:active {
+    color: #806080;
+}
+
+table#link_table thead th {
+    font-weight: normal;
+}
+table#link_table tr td {
+    border-top: 1px solid #766780;
+}
+
+
+div#errors {
+    color: #f45;
+    background: #2c0038;
+}
+
+div#no_links_message {
+    color: #2c0038;
+}

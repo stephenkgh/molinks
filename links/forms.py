@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
@@ -52,3 +53,11 @@ class EditCatForm(forms.Form):
     cat_ml = Category._meta.get_field('name').max_length
 
     name = forms.CharField(widget=forms.TextInput(attrs={'autofocus': True}), required=True, max_length=cat_ml)
+
+
+class ThemeForm(forms.Form):
+    theme = forms.ChoiceField(
+        choices=settings.THEME_CHOICES_TUPLES,
+        widget=forms.Select(attrs={'onchange': 'this.form.submit()'}),
+        initial=settings.THEME_DEFAULT,
+    )

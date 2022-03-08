@@ -1,7 +1,10 @@
-@font-face{
-    font-family: 'URW JacobiD';
-    src: url("/static/links/j003000d.ttf");
-}
+/* notes
+- all custom #content min-height
+- experiment w/ top-level td and inline-block
+
+*/
+
+/* CSS shared by all themes */
 
 * {
     margin: 0;
@@ -14,35 +17,20 @@ html {
 }
 
 body {
-    background: #9f8aac;
     padding: 10px;
     margin: 0px;
     font-size: 10pt;
-    font-family: helvetica, verdana, lucida grande, lucida sans unicode, arial, sans-serif;
     text-align: center;
 }
 
 #content {
-    /* subtract footer height plus a bit extra or we get an unnecessary scrollbar*/
-    min-height: calc(100vh - 40px);
+    /* subtract footer height plus a bit extra or we get an unnecessary scrollbar */
+    min-height: calc(100vh - 75px);
 }
 
 footer {
-    height: 20px;
-    padding-top: 10px;
-}
-
-h1, h1 a:link, h1 a:visited {
-    font-family: 'URW JacobiD';
-    font-size: 91pt;
-    font-weight: normal;
-    color: #2c0038;
-    margin: -10px 0;
-    padding: 0 0 20px 0;
-}
-
-h1 a:active {
-    color: #806080;
+    height: 30px;
+    padding-top: 30px;
 }
 
 table {
@@ -53,21 +41,10 @@ td {
     padding: 0 15px 0 0;
 }
 
-a:link {
-    color: #200020;
+a {
     text-decoration: none;
 }
-a:visited {
-    color: #200020;
-}
-a:hover {
-    color: #402040;
-}
-a:active {
-    color: #806080;
-}
 
-input[type=submit],
 input[type=submit],
 select {
     padding-left: 20px;
@@ -117,6 +94,10 @@ div#login_container {
     margin-right: 50px;
 }
 
+div#footer_container {
+    padding: 10px 0;
+}
+
 /* ---- form table ------------------------------------------------------------------------------------ */
 
 table#form_table {
@@ -148,31 +129,27 @@ table#link_table {
 }
 
 table#link_table thead th {
-    font-weight: normal;
     padding-top: 20px;
     border-bottom: 1px solid black;
 }
 table#link_table tr td {
     vertical-align: top;
-    border-top: 1px solid #766780;
+    border-top: 1px solid black;
 }
 
 td.padcolumn {
-    padding-right: 5px;
+    margin-right: 5px;
+    width: 1%;
 }
 td.linkcolumn {
     max-width: 600px;
     vertical-align: top;
-/* truncate links */
-/* * /
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-/* */
 }
-td.notecolumn {
+td.notecolumn, th.notecolumn {
+    padding-left: 10px;
 }
-td.datecolumn {
+td.datecolumn, th.datecolumn {
+    padding-left: 10px;
 }
 
 button.edit_button {
@@ -211,8 +188,8 @@ span.edit_category:hover a button {
 /* ---- other elements -------------------------------------------------------------------------------- */
 
 div#errors {
-    color: #f45;
-    background: #2c0038;
+    color: red;
+    background: black;
     padding: 10px 40px;
     margin: -20px 0 10px;
     font-size: 12pt;
@@ -244,11 +221,21 @@ div#no_links_message {
     font-size: 20pt;
     font-style: italic;
     font-weight: bold;
-    color: #2c0038;
 }
 
 div#sort {
     position: absolute;
     text-align: right;
     right: 10px;
+}
+
+span#copyright {
+}
+span#pick_theme {
+    position: absolute;
+    right: 20px;
+}
+
+form#theme_form {
+    display: inline-block;
 }

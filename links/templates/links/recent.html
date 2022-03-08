@@ -10,15 +10,16 @@
         <tr>
             <th></th>
             <th>Link</th>
-            <th>Note</th>
-            <th colspan="2">Category</th>
+            <th class="notecolumn">Note</th>
+            <th>Category</th>
+            <th class="datecolumn"></th>
         </tr>
     </thead>
     <tbody>
         {% for link in link_heir %}
             <tr>
                 <td class="padcolumn">
-                    <a class="edit_link" href="link/{{ link.id }}"><button class="edit_button" type="button">Edit</button></a></td>
+                    <a class="edit_link" href="/link/{{ link.id }}"><button class="edit_button" type="button">Edit</button></a></td>
                 <td class="linkcolumn"><a href="{{ link.url }}">{{ link.url }}</a></td>
                 <td class="notecolumn">{{ link.note }}</td>
                 <td class="catcolumn">{{ link.category.name }}</td>

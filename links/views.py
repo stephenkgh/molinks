@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.core.exceptions import NON_FIELD_ERRORS
 
-from .models import Category, Link
+from .models import Category, Link, UserPref
 from . import forms
 
 @login_required
@@ -47,6 +47,7 @@ def index(request):
         'form': form,
         'link_heir': link_heir,
         'admin': request.user.is_staff,
+        'theme_form': _theme_form(request),
     })
 
 
@@ -79,6 +80,7 @@ def recent(request):
         'form': form,
         'link_heir': link_heir,
         'admin': request.user.is_staff,
+        'theme_form': _theme_form(request),
     })
 
 
@@ -121,6 +123,7 @@ def edit_link(request, link_id):
     return render(request, 'links/edit_link.html', {
         'link_id': link.id,
         'form': form,
+        'theme_form': _theme_form(request),
     })
 
 
@@ -158,7 +161,22 @@ def edit_cat(request, cat_id):
         'category': cat,
         'cat_id': cat.id,
         'form': form,
+        'theme_form': _theme_form(request),
     })
+
+
+@login_required
+def choose_theme(request):
+    errors = False
+    if request.method == 'POST':
+        form = forms.ThemeForm(request.POST)
+        if form.is_valid():
+            _set_user_pref(request, theme=request.POST['theme'])
+
+    # always redirect to index
+    # TODO: redirect to same page, not index; this could be complex if we want to preserve
+    # what a user had started entering into the main form but had not yet submitted...
+    return HttpResponseRedirect(reverse('index'))
 
 
 # ---- utility ---------------------------------------------------------------------------------------
@@ -174,3 +192,22 @@ def _get_cat(request):
         cat = Category.objects.get(id=request.POST['category'])
 
     return cat
+
+
+def _theme_form(request):
+    form = forms.ThemeForm()
+    userpref = UserPref.objects.filter(user=request.user)
+    if len(userpref) > 0:
+        form.fields['theme'].initial = userpref[0].theme
+    return form
+
+
+def _set_user_pref(request, **kwargs):
+    # get or create user pref object
+    if not hasattr(request.user, 'theme'):
+        pref = UserPref(user=request.user)
+
+    # set prefs
+    if 'theme' in kwargs:
+        pref.theme = kwargs['theme']
+        pref.save()
