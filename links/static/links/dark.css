@@ -46,10 +46,11 @@ select {
 }
 
 table#link_table thead th {
+    border-bottom: 1px solid #9546c2;
     font-weight: normal;
 }
 table#link_table tr td {
-    border-top: 1px solid #766780;
+    border-top: 1px solid #483057;
 }
 
 div#errors {

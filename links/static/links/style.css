@@ -34,7 +34,7 @@ footer {
 }
 
 table {
-    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 td {
@@ -223,6 +223,14 @@ div#no_links_message {
     font-weight: bold;
 }
 
+div#search {
+    display: none;
+    position: absolute;
+    left: 40%;
+}
+div#vspace {
+    display: none;
+}
 div#sort {
     position: absolute;
     text-align: right;

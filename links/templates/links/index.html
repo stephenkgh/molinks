@@ -2,9 +2,21 @@
 
 {% block links_container %}
     <div id="link_container">
+
         <div id="sort">
             <a href="/recent"><button class="edit_button" type="button">Order by recent</button></a>
         </div>
+        <div id="search">
+            <input id="filterbox" placeholder="Search">
+            <script>
+                molinks.filter({
+                    table_id: "link_table",
+                    td_plain_classes: ['notecolumn', 'datecolumn'],
+                    td_link_classes:  ['linkcolumn'],
+                });
+            </script>
+        </div>
+
     <table id="link_table">
     {% for cat_id, group in link_heir.items %}
         <thead>

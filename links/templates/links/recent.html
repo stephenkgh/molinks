@@ -2,9 +2,23 @@
 
 {% block links_container %}
     <div id="link_container">
+
+        <div id="search">
+            <input id="filterbox" placeholder="Search">
+            <script>
+                molinks.filter({
+                    table_id: "link_table",
+                    td_plain_classes: ['notecolumn', 'datecolumn', 'catcolumn'],
+                    td_link_classes:  ['linkcolumn'],
+                });
+            </script>
+        </div>
+        <div id="vspace">
+        </div>
         <div id="sort">
             <a href="/"><button class="edit_button" type="button">Order by category</button></a></th>
         </div>
+
     <table id="link_table">
     <thead>
         <tr>
