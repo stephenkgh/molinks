@@ -33,8 +33,7 @@ ALLOWED_HOSTS = ['localhost']
 # Application definition
 
 INSTALLED_APPS = [
-    'molinks',
-    'links',
+    'molinks.apps.MolinksConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'links.theme.ThemeMiddleware',
+    'molinks.theme.ThemeMiddleware',
 ]
 
 ROOT_URLCONF = 'molinks.urls'
@@ -125,9 +124,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    "molinks/static",
-]
+# TODO: REMOVE IF NOT NEEDED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+#STATICFILES_DIRS = [
+#    "molinks/static",
+#]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -140,10 +140,10 @@ LOGIN_URL = '/login/'
 THEME_DEFAULT = 'MO'
 THEME_CHOICES = [
     # code, description,    filename
-    ['MO',  'Maureen',      'links/molinks.css'],
-    ['DA',  'Dark Mode',    'links/dark.css'],
-    ['NE',  'L33t NeRD',    'links/nerd.css'],
-    ['BO',  'All Business', 'links/boring.css'],
+    ['MO',  'Maureen',      'molinks/molinks.css'],
+    ['DA',  'Dark Mode',    'molinks/dark.css'],
+    ['NE',  'L33t NeRD',    'molinks/nerd.css'],
+    ['BO',  'All Business', 'molinks/boring.css'],
 ]
 # process main choices list into tuples needed for ORM
 THEME_CHOICES_TUPLES = [(x[0], x[1]) for x in THEME_CHOICES]

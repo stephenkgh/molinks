@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}Default Title{% endblock %}</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'molinks/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static request.theme_css %}">
+        <link rel="shortcut icon" href="{% static 'favicon.png' %}" type="image/x-icon">
+        <script src="{% static 'molinks/molinks-filter.js' %}"></script>
+    </head>
+    <body>
+        <div id="content">
+        <h1><a href="/">Mo Links</a></h1>
+
+        {% if form.non_field_errors %}
+        <div id="errors"> {{ form.non_field_errors }} </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+        </div>
+        <footer>
+            <hr>
+            <div id="footer_container">
+                <span id="copyright"> © 2017-{% now "Y" %} Stephen Krauth </span>
+                <span id="pick_theme">
+                {% if request.user and theme_form %}
+                Welcome {{ request.user.username }}, choose your theme:
+                    <form id="theme_form" method="post" action="/theme/">
+                    {% csrf_token %}
+                    {{ theme_form.theme }}
+                    </form>
+                </span>
+                {% endif %}
+            </div>
+        </footer>
+    </body>
+</html>
+
+<script>
+    // automatically select the first form input that has the "autofocus" property; when selected
+    // like this the user can easily replace the text by just typing new text
+    (function() {
+        for (var x of document.getElementsByTagName('input')) {
+            if (x.hasAttribute('autofocus')) {
+                x.select();
+                // when selected via JS, the content of the textbox is scrolled all the way to
+                // the right, but it would be ideal to see the leftmost part with the URL instead;
+                // we can scroll it back but only AFTER the browser has updated the selection;
+                // "wait 50ms" is a hack but window.requestIdleCallback() doesn't work reliably
+                setTimeout(function() {
+                    x.scroll(0, 0);
+                }, 50);
+                return;
+            }
+        }
+    })();
+</script>

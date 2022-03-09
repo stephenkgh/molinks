@@ -1,0 +1,45 @@
+{% extends "molinks/main.html" %}
+
+{% block links_container %}
+    <div id="link_container">
+
+        <div id="sort">
+            <a href="/recent"><button class="edit_button" type="button">Order by recent</button></a>
+        </div>
+        <div id="search">
+            <input id="filterbox" placeholder="Search">
+            <script>
+                molinks.filter({
+                    table_id: "link_table",
+                    td_plain_classes: ['notecolumn', 'datecolumn'],
+                    td_link_classes:  ['linkcolumn'],
+                });
+            </script>
+        </div>
+
+    <table id="link_table">
+    {% for cat_id, group in link_heir.items %}
+        <thead>
+            <tr><th colspan="4">
+                <span class="edit_category">
+                    {{ group.cat.name }}
+                    <a href="/category/{{ group.cat.id }}"><button class="edit_button" type="button">Edit Category</button></a></th>
+                </span>
+            </tr>
+        </thead>
+        <tbody>
+            {% for link in group.links %}
+                <tr>
+                    <td class="padcolumn">
+                        <a class="edit_link" href="/link/{{ link.id }}"><button class="edit_button" type="button">Edit</button></a></td>
+                    <td class="linkcolumn">
+                        <a href="{{ link.url }}">{{ link.url }}</a></td>
+                    <td class="notecolumn">{{ link.note }}</td>
+                    <td class="datecolumn">{{ link.updated|date:'Y-m-d' }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        {% endfor %}
+    </table>
+    </div>
+{% endblock links_container %}

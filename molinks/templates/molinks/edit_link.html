@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Mo Links - Edit Link{% endblock %}
+
+{% block content %}
+
+{% include "molinks/logout.html" %}
+
+<div id="form_container">
+<form method="post" action="{{ link_id }}">
+{% csrf_token %}
+{% include "molinks/add_edit_form.html" with cancel=True delete=True %}
+</form>
+</div>
+
+{% endblock content %}
+

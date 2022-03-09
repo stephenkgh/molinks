@@ -1,0 +1,35 @@
+# starting from scratch #
+
+# first nuke everything
+- remove all docker containers
+- remove all docker images
+- remove all docker volumes
+
+# build & start containers
+host> docker-compose up -d --build
+
+# create database tables; from within web container:
+container> python manage.py makemigrations molinks
+container> python manage.py migrate
+
+# NOTE: MAY have to remove all previous migrations files
+
+# create super user
+container> python manage.py createsuperuser
+(answer questions)
+
+
+# ---- testing ---------------------------------------------------------------------------------------
+
+# run tests
+container> python manage.py test
+
+# create fake user with fake data
+container> python manage.py fakeuser
+
+# test via browser
+http://localhost:8000
+
+- login w/ fakeuser01
+- login w/ stephenk and check out admin section
+
