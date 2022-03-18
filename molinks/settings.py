@@ -27,8 +27,7 @@ SECRET_KEY = 'django-insecure-axby@$2^_skosd3k@-nxx7wo0)0uyqgnq=e&5g9*@@iq&)6=r3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
-
+ALLOWED_HOSTS = ['localhost', 'killermartian.com']
 
 # Application definition
 
@@ -134,7 +133,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = '/login/'
+LOGIN_URL = '/molinks/login/'
 
 # theme choices
 THEME_DEFAULT = 'MO'

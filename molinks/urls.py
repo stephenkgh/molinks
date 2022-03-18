@@ -21,3 +21,7 @@ urlpatterns = [
     # admin
     path('admin/', admin.site.urls),
 ]
+
+#urlpatterns = [
+#    path('molinks/', include(molinks_urlpatterns)),
+#]

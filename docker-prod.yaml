@@ -14,15 +14,12 @@ services:
   web:
     build:
       context: .
-      dockerfile: dockerfile-web
+      dockerfile: dockerfile-web-prod
     image: molinks-web
-    #command: bash -c "while true; do python manage.py runserver 0.0.0.0:8000; sleep 1; done"
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/code
-      - ./web-home:/home/stephenk
+    command: uwsgi --ini /code/uwsgi.ini
+    #command: sleep 123481934
     ports:
-      - "8000:8000"
+      - "8192:8192"
     environment:
       - POSTGRES_NAME=${POSTGRES_NAME}
       - POSTGRES_USER=${POSTGRES_USER}

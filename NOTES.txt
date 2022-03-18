@@ -33,3 +33,15 @@ http://localhost:8000
 - login w/ fakeuser01
 - login w/ stephenk and check out admin section
 
+
+# ---- notes on installing docker --------------------------------------------------------------------
+
+Install docker:
+- follow steps from: https://docs.docker.com/engine/install/ubuntu/
+- follow steps from: https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
+
+    
+Use Docker Compose V2:
+- apt remove docker-compose
+- install compose cli command by following this page:
+    https://docs.docker.com/compose/cli-command/
