@@ -34,6 +34,25 @@ http://localhost:8000
 - login w/ stephenk and check out admin section
 
 
+# ---- deploying -------------------------------------------------------------------------------------
+
+# *** NOTE ***  This is not the right way to do things, but no time to unhackify it for now...
+
+# deploy containers to vm04 (for now the containers are build from scratch on vm04;
+# they should be "pushed" or something...)
+# NOTE: requires a vm04 "context" exists
+host> docker --context vm04 compose -f docker-prod.yaml up --build
+host> rsync -av 
+
+# update static files from the dev instance:
+host> docker exec -it molinks-web-1 bash
+container> python manage.py collectstatic
+container> exit
+
+# deploy static files
+host> rsync -av staticfiles/* vm04:/www/sites/stephenk.com/molinks-static
+
+
 # ---- notes on installing docker --------------------------------------------------------------------
 
 Install docker:

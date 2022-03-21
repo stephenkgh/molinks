@@ -10,5 +10,5 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /code
 COPY --chown=stephenk:stephenk . /code/
 RUN set -eux; \
-    pip install -r requirements.txt
+    pip install -r requirements-prod.txt
 USER stephenk
