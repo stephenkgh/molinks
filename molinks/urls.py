@@ -19,9 +19,5 @@ urlpatterns = [
     path('logout/', loginviews.logout, name='logout'),
 
     # admin
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
 ]
-
-#urlpatterns = [
-#    path('molinks/', include(molinks_urlpatterns)),
-#]

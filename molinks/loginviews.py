@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import auth
+from django.urls import reverse
 
 from molinks import forms
 
@@ -30,7 +31,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect(reverse('login'))
 
 
 # ---- utility ---------------------------------------------------------------------------------------
@@ -39,4 +40,4 @@ def redirect_next(request):
     if 'next' in request.GET:
         return HttpResponseRedirect(request.GET['next'])
     else:
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(reverse('index'))

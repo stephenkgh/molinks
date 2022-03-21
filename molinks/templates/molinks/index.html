@@ -4,7 +4,7 @@
     <div id="link_container">
 
         <div id="sort">
-            <a href="/recent"><button class="edit_button" type="button">Order by recent</button></a>
+            <a href="{% url 'recent' %}"><button class="edit_button" type="button">Order by recent</button></a>
         </div>
         <div id="search">
             <input id="filterbox" placeholder="Search">
@@ -23,7 +23,7 @@
             <tr><th colspan="4">
                 <span class="edit_category">
                     {{ group.cat.name }}
-                    <a href="/category/{{ group.cat.id }}"><button class="edit_button" type="button">Edit Category</button></a></th>
+                    <a href="{% url 'edit_cat' group.cat.id %}"><button class="edit_button" type="button">Edit Category</button></a></th>
                 </span>
             </tr>
         </thead>
@@ -31,7 +31,7 @@
             {% for link in group.links %}
                 <tr>
                     <td class="padcolumn">
-                        <a class="edit_link" href="/link/{{ link.id }}"><button class="edit_button" type="button">Edit</button></a></td>
+                        <a class="edit_link" href="{% url 'edit_link' link.id %}"><button class="edit_button" type="button">Edit</button></a></td>
                     <td class="linkcolumn">
                         <a href="{{ link.url }}">{{ link.url }}</a></td>
                     <td class="notecolumn">{{ link.note }}</td>

@@ -16,7 +16,7 @@
         <div id="vspace">
         </div>
         <div id="sort">
-            <a href="/"><button class="edit_button" type="button">Order by category</button></a></th>
+            <a href="{% url 'index' %}"><button class="edit_button" type="button">Order by category</button></a></th>
         </div>
 
     <table id="link_table">
@@ -33,7 +33,7 @@
         {% for link in link_heir %}
             <tr>
                 <td class="padcolumn">
-                    <a class="edit_link" href="/link/{{ link.id }}"><button class="edit_button" type="button">Edit</button></a></td>
+                    <a class="edit_link" href="{% url 'edit_link' link.id %}"><button class="edit_button" type="button">Edit</button></a></td>
                 <td class="linkcolumn"><a href="{{ link.url }}">{{ link.url }}</a></td>
                 <td class="notecolumn">{{ link.note }}</td>
                 <td class="catcolumn">{{ link.category.name }}</td>
