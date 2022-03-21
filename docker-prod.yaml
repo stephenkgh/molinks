@@ -16,8 +16,7 @@ services:
       context: .
       dockerfile: dockerfile-web-prod
     image: molinks-web
-    #command: uwsgi --ini /code/uwsgi.ini
-    command: sleep 123481934
+    command: uwsgi --ini /code/uwsgi.ini
     ports:
       - "8192:8192"
     environment:
