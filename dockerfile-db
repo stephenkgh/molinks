@@ -2,5 +2,5 @@
 FROM postgres:14-alpine
 RUN set -eux; \
     apk add bash; \
-    addgroup -g 1000 stephenk; \
-    adduser -D -u 1000 -G stephenk stephenk -s /bin/bash
+    addgroup -g 1000 user; \
+    adduser -D -u 1000 -G user user -s /bin/bash

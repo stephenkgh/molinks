@@ -1,5 +1,6 @@
 services:
   db:
+    restart: "always"
     build:
       context: .
       dockerfile: dockerfile-db
@@ -11,17 +12,16 @@ services:
       - POSTGRES_NAME=${POSTGRES_NAME}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
   web:
+    restart: "always"
     build:
       context: .
-      dockerfile: dockerfile-web
+      dockerfile: dockerfile-web-prod
     image: molinks-web
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/code
-      - ./web-home:/home/stephenk
+    command: uwsgi --ini /project/uwsgi.ini
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     environment:
       - POSTGRES_NAME=${POSTGRES_NAME}
       - POSTGRES_USER=${POSTGRES_USER}
@@ -31,3 +31,4 @@ services:
 
 volumes:
     postgres-data:
+

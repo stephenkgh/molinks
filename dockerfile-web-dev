@@ -1,14 +1,14 @@
 # syntax=docker/dockerfile:1
 FROM python:3.10-alpine
 RUN set -eux; \
-    apk add bash python3-dev build-base linux-headers pcre-dev; \
+    apk add bash; \
     addgroup -g 1000 user; \
     adduser --no-create-home -D -u 1000 -G user user -s /bin/bash; \
     ln -s /project/homedir /home/user
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 WORKDIR /project
-COPY --chown=user:user . /project/
+COPY requirements-dev.txt /project/
 RUN set -eux; \
-    pip install -r requirements-prod.txt
+    pip install -r requirements-dev.txt
 USER user

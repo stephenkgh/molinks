@@ -3,7 +3,7 @@
     <input type="submit" value="Logout">
 </form>
 {% if admin %}
-    <form method="GET" action ="{% url 'index' %}/admin">
+    <form method="GET" action ="{% url 'admin:index' %}">
         <input type="submit" value="Admin">
     </form>
 {% endif %}

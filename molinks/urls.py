@@ -19,5 +19,5 @@ urlpatterns = [
     path('logout/', loginviews.logout, name='logout'),
 
     # admin
-    path('admin/', admin.site.urls, name='admin'),
+    path('admin/', admin.site.urls),
 ]
