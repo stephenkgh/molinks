@@ -8,10 +8,9 @@ services:
     command: postgres
     volumes:
       - postgres-data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_NAME=${POSTGRES_NAME}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    env_file:
+      - .env
+      - secrets/env
 
   web:
     restart: "always"
@@ -22,10 +21,9 @@ services:
     command: uwsgi --ini /project/uwsgi.ini
     ports:
       - "127.0.0.1:8000:8000"
-    environment:
-      - POSTGRES_NAME=${POSTGRES_NAME}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    env_file:
+      - .env
+      - secrets/env
     depends_on:
       - db
 
