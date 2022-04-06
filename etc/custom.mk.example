@@ -1,0 +1,6 @@
+# this is the hostname of your webserver
+REMOTE_HOST     := example.com
+
+# this is the path (on the webserver) for storing static files; it will have
+# to match the static files path in your nginx config
+REMOTE_STATIC   := /path/to/store/static/files
