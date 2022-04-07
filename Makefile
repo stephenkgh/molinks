@@ -15,7 +15,7 @@ PROD_CONTEXT    := prod
 STATICFILES_DIR := staticfiles
 
 # get REMOTE_HOST and REMOTE_STATIC from here
--include etc/custom.mk
+-include etc/prod.env
 
 # flags
 PROD := $(filter prod,$(MAKECMDGOALS))
@@ -30,7 +30,7 @@ TAIL_ARG2 := $(if $(TAIL),-f,)
 
 .NOTPARALLEL:
 .PHONY: all dev prod build tail
-.PHONY: up down ps images clean destroy shell dbshell log init test fakeuser staticfiles
+.PHONY: up down ps im clean destroy shell dbshell log init test fakeuser staticfiles
 
 all: up dev
 dev: ;@:
@@ -47,12 +47,12 @@ down:
 ps:
 	docker $(PROD_ARG1) ps -a
 
-images:
+im:
 	docker $(PROD_ARG1) image ls -a
 
 clean:
 	-docker $(PROD_ARG1) rm $(CONTAINERS)
-	docker $(PROD_ARG1) image rm $(IMAGES)
+	-docker $(PROD_ARG1) image rm $(IMAGES)
 
 destroy: clean
 	docker $(PROD_ARG1) volume rm $(VOLUMES)
@@ -83,7 +83,7 @@ staticfiles:
 	@echo "REMOTE_HOST and REMOTE_STATIC must be setup first; see README.md"
 else
 staticfiles:
-	docker exec -it $(CONTAINER_WEB) python manage.py collectstatic
+	docker exec -it $(CONTAINER_WEB) python manage.py collectstatic --noinput
 	rsync -av $(STATICFILES_DIR)/* $(REMOTE_HOST):$(REMOTE_STATIC)
 endif
 

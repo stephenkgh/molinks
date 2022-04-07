@@ -32,7 +32,7 @@ about and can lead to data breaches.
 Installing
 ==========
 
-*Note:* This has only been tested under linux.  You'll need GNU make
+*Note:* This guide has only been tested under linux.  You'll need GNU make
 installed because a makefile has been horribly abused to help simplify
 docker commands.  (Before I did this I was constantly mixing up dev and
 prod arguments to docker and causing problems...)
@@ -68,6 +68,13 @@ out with some data do this:
 Login with the new account then scroll to the bottom and change the
 theme to "L33t NeRD".  This will reveal the quick search box - try it out!
 
+You can clean up the dev instance with:
+
+    make down destroy
+
+That will remove the containers, images and database volume.  The only
+things left should be the base `postgres` and `python` images.
+
 
 Prod
 ----
@@ -94,24 +101,11 @@ You'll need to add 2 location blocks to your nginx config:
     }
 ```
 
-Change "molinks" above to whatever sub-path you want the project to
-appear under.  Also, `snippets/uwsgi-params.conf` points to a copy of
-this file: https://github.com/nginx/nginx/blob/master/conf/uwsgi_params
-
-
-### Postgres password ###
-
-(This project uses an environment variable for the Postgres password;
-not ideal but that's as far as I got.)  Create the file `etc/secrets.env`
-and set a secure password:
-
-    cp etc/secrets.env.example etc/secrets.env
-
-*NOTE*: To make sure these secrets are never accidentally added to git
-add the following to the `.git/info/exclude` file:
-
-    etc/*
-    !etc/*.example
+Change "molinks" above to whatever sub-path you want the
+project to appear under.  The "molinks-static" directory
+will hold files not served by Django (see below).  Also,
+`snippets/uwsgi-params.conf` points to a copy of this file:
+https://github.com/nginx/nginx/blob/master/conf/uwsgi_params
 
 
 ### Docker context ###
@@ -122,26 +116,43 @@ for installing to the production server.  Set it up like this:
     docker context create prod --description "production server" --docker "host=ssh://username@example.com"
 
 
-### Static files ###
+### Postgres password ###
 
-Django doesn't serve static files through uswsgi (ie. images, css,
-javascript).  You need to install these in a separate location on your
-webserver and reference them in the nginx config above.
+(This project uses environment variables for the Postgres password and
+other secrets; not ideal but that's as far as I got.)  Create the file
+`etc/secrets.env` and change the variables to something appropriately
+secure:
+
+    cp etc/secrets.env.example etc/secrets.env
+
+
+### Other prod variables ###
+
+Similar to the secrets file above, some other prod variables need to be
+set in the etc/prod.env file:
+
+    cp etc/prod.env.example etc/prod.env
+
+`DOMAIN_NAME` is used by Django settings to set `ALLOWED_HOSTS` for
+security purposes.  `DJANGO_DEBUG` should be pretty obvious.
+
+`REMOTE_HOST` and `REMOTE_STATIC` however are used by the Makefile for
+handling static files.  Django in production mode will not serve static
+files (ie. images, css, javascript, etc).  You need to install these
+in a separate location on your webserver and let nginx serve them.
+(Note that they are referenced in the nginx config above.)
 
 The Makefile uses rsync to copy the files to your webserver but needs to
-know where.  This is determined by the two make variables `REMOTE_HOST`
-and `REMOTE_STATIC` which can be set in etc/custom.mk:
-
-    cp etc/custom.mk.example etc/custom.mk
-
-After editing that file do:
+know where, and that's what these two variables are for.  After editing
+that file do:
 
     make staticfiles
 
 
 ### Start it up ###
 
-Once the above is all set you start the containers almost the same as in dev mode:
+Once the above is all set you start the containers almost the same as
+in dev mode:
 
     make prod up build
     make prod init
@@ -151,20 +162,12 @@ Once the above is all set you start the containers almost the same as in dev mod
 Other notes
 ===========
 
-There are a bunch more helpful docker shortcuts in the Makefile.  See the code for
-details but here are a few examples:
+There are a bunch more helpful docker shortcuts in the Makefile.  See the
+code for details but here are a few examples:
 
     make ps
     make shell
     make dbshell
     make log tail
-    make down clean
-
-Here's a more complete `.git/info/exclude` file to use for this project:
-
-    etc/*
-    !etc/*.example
-    homedir/*
-    !homedir/.placeholder
-    staticfiles/
+    make down clean     # remove everything except database volume
 

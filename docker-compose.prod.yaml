@@ -1,10 +1,13 @@
 services:
   db:
     restart: "always"
+    env_file:
+      - etc/secrets.env
 
   web:
     restart: "always"
     command: uwsgi --ini /project/uwsgi.ini
-    # Note: this does not replace the base env_file entry, it adds to it
-    env_file: etc/secrets.env
+    env_file:
+      - etc/prod.env
+      - etc/secrets.env
 
