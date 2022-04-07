@@ -3,7 +3,7 @@
 
 # config
 PROJECT         := molinks
-COMPOSE_FILE    := docker-compose.yaml
+COMPOSE_FILES   := docker-compose.yaml docker-compose.prod.yaml
 IMAGE_WEB       := $(PROJECT)-web
 IMAGE_DB        := $(PROJECT)-db
 IMAGES          := $(IMAGE_WEB) $(IMAGE_DB)
@@ -21,7 +21,7 @@ STATICFILES_DIR := staticfiles
 PROD := $(filter prod,$(MAKECMDGOALS))
 MODE := $(if $(PROD),prod,dev)
 PROD_ARG1 := $(if $(PROD),--context $(PROD_CONTEXT),)
-PROD_ARG2 := $(if $(PROD),-f $(COMPOSE_FILE),)
+PROD_ARG2 := $(if $(PROD),$(foreach cf,$(COMPOSE_FILES),-f $(cf)))
 BUILD := $(filter build,$(MAKECMDGOALS))
 BUILD_ARG := $(if $(BUILD),--build,)
 TAIL := $(filter tail,$(MAKECMDGOALS))

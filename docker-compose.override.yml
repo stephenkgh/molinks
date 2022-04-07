@@ -1,14 +1,9 @@
 services:
   db:
     restart: "no"
-    env_file: .env
 
   web:
     restart: "no"
-    build:
-      context: .
-      dockerfile: dockerfile-web-dev
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/project
-    env_file: .env
