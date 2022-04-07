@@ -68,13 +68,6 @@ out with some data do this:
 Login with the new account then scroll to the bottom and change the
 theme to "L33t NeRD".  This will reveal the quick search box - try it out!
 
-You can clean up the dev instance with:
-
-    make down destroy
-
-That will remove the containers, images and database volume.  The only
-things left should be the base `postgres` and `python` images.
-
 
 Prod
 ----
@@ -144,7 +137,8 @@ in a separate location on your webserver and let nginx serve them.
 
 The Makefile uses rsync to copy the files to your webserver but needs to
 know where, and that's what these two variables are for.  After editing
-that file do:
+that file do this (this uses the dev instance to generate the files; 
+hopefully you didn't delete it yet):
 
     make staticfiles
 
@@ -157,6 +151,20 @@ in dev mode:
     make prod up build
     make prod init
     make prod test
+
+
+Cleanup
+=======
+
+You can clean up the dev instance with:
+
+    make down destroy
+
+That will remove the containers, images and database volume.  The only
+things left should be the base `postgres` and `python` images.  And same
+for the prod instance:
+
+    make prod down destroy
 
 
 Other notes
